@@ -74,6 +74,9 @@ var group_1 = canvas.append("g")
 // arcs.append("path")
 // 	.attr("d", arc);
 
+// Color
+var color = d3.scaleOrdinal()
+	.range(["red","blue","green","purple"]);
 
 // 프로바이더
 var arc = d3.arc()
@@ -93,6 +96,10 @@ var arcs = group_1.selectAll("g")
 
 // 프로바이더를 이용한 각각의 group에 arc path 추가!
 arcs.append("path")
-	.attr("d", arc);
+	.attr("d", arc)
+	.attr("fill", function (d) { 
+		console.log(d.data); 
+		return color(d.data); 
+	});
 
 
