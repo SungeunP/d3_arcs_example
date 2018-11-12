@@ -34,7 +34,7 @@
  
 
 /// color group arc Example ///
-var data = [10, 50, 80, 50];
+var data = [10, 50, 80, 60];
 var r = 300;
 
 // main canvas
@@ -75,6 +75,7 @@ var group_1 = canvas.append("g")
 // 	.attr("d", arc);
 
 // Color
+// -> 값이 중복되면 똑같은 색상 return됨
 var color = d3.scaleOrdinal()
 	.range(["red","blue","green","purple"]);
 
@@ -101,5 +102,16 @@ arcs.append("path")
 		console.log(d.data); 
 		return color(d.data); 
 	});
+
+// add text to arcs
+arcs.append("text")
+	// transform to arc center 
+	// parameter에 d는 d3에서 관리하는 객체여서 arc.centroid에 넘기면 center 위치 반환
+	.attr("transform", function (d) { console.log(d); return "translate(" + arc.centroid(d) + ")";})
+	// styles
+	.attr("text-anchor","middle")
+	.attr("font-size", 40)
+	// set Text
+	.text(function (d) { return d.data; });
 
 
